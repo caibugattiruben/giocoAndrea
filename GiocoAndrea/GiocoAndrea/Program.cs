@@ -4,7 +4,7 @@
     Random rdn = new Random();
     for (int i = 0; i < tentativi + 1; i++)
     {
-        string carta = valori[rdn.Next(0, 14)];
+        string carta = valori[rdn.Next(0, 13)];
         carta += ","+seme[rdn.Next(0, 4)];
         if (!mano.Contains(carta))
         {
@@ -46,39 +46,74 @@ bool indovina(List<string> mano,List<string> valori,List<string> seme)
     }
     return false;
 }
-List<string> valori = new List<string>(["1", "2","3","4","5","6","7","8","9","y","J","Q","K","A"]);
+List<string> valori = new List<string>(["2","3","4","5","6","7","8","9","y","J","Q","K","A"]);
 List<string> seme = new List<string>(["Picche", "Fiori", "Quadri", "Cuori"]);
 List<string> mano = new List<string>();
 bool chiudi = true;
-int tentativi = 1;
+int tentativi = 1,giro=2;
 Random rdn=new Random();
 while (chiudi!=false)
-{   
-    
+{      
     generoCarta(tentativi,valori, seme, mano);
     bool indovinato = indovina(mano,valori,seme);
-    Console.WriteLine("Le carte erano:");
-    foreach(string s in mano)
-    {
-        if (s == (mano.Count-1).ToString())
-        {
-            Console.Write(s);
-        }
-        else
-        {
-            Console.Write(s + " | ");
-        }
-    }
-    Console.WriteLine();
     if (indovinato == true)
     {
         Console.WriteLine("Hai indovinato!!!");
         tentativi++;
+        giro++;
     }
     else
     {
         Console.WriteLine("Mi dispiace non hai indovinato");
         tentativi = 1;
+        giro = 2;
     }
-    
+    Console.WriteLine("Le carte erano:");
+    foreach (string s in mano)
+    {
+        if (mano.IndexOf(s) == mano.Count-1)
+        {
+            if (s[0] == 'y')
+            {
+                Console.Write("10 ");
+            }
+            else
+            {
+                Console.Write(s[0]+" ");
+            }
+            Console.Write(s[2]);
+        }
+        else
+        {
+            if (s[0] == 'y')
+            {
+                Console.Write("10 ");
+            }
+            else
+            {
+                Console.Write(s[0]+" ");
+            }
+            Console.Write(s[2]+" | ");
+        }
+    }
+    Console.WriteLine();
+    if (giro == 52)
+    {
+        chiudi = false;
+        Console.WriteLine("COMPLIMENTI HAI VINTO IL GIOCO");
+    }
+    if (indovinato == false)
+    {
+        Console.WriteLine("hai perso vuoi chiudere si o no");
+        string risp = Console.ReadLine();
+        if (risp == "si")
+        {
+            chiudi = false;
+        }
+        else
+        {
+            Console.WriteLine("Ok allora buona fortuna");
+        }
+        
+    }
 }
