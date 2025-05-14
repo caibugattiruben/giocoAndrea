@@ -81,7 +81,7 @@ while (chiudi!=false)
             {
                 Console.Write(s[0]+" ");
             }
-            Console.Write(s[2]);
+            Console.Write(s.Substring(2));
         }
         else
         {
@@ -93,7 +93,7 @@ while (chiudi!=false)
             {
                 Console.Write(s[0]+" ");
             }
-            Console.Write(s[2]+" | ");
+            Console.Write(s.Substring(2)+" | ");
         }
     }
     Console.WriteLine();
